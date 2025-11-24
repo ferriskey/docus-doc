@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  white?: boolean
+    white?: boolean
 }>()
 
 const isBlinking = ref(false)
@@ -14,106 +14,106 @@ const logoElement = ref()
 const toast = useToast()
 
 const copyToClipboard = async (text: string) => {
-  try {
-    await navigator.clipboard.writeText(text)
-    return true
-  }
-  catch {
-    return false
-  }
+    try {
+        await navigator.clipboard.writeText(text)
+        return true
+    }
+    catch {
+        return false
+    }
 }
 
 function setupBlinking() {
-  const blinkDelay = Math.random() * 5000 + 2000
+    const blinkDelay = Math.random() * 5000 + 2000
 
-  const timerId = setTimeout(() => {
-    isBlinking.value = true
+    const timerId = setTimeout(() => {
+        isBlinking.value = true
 
-    const blinkTimerId = setTimeout(() => {
-      isBlinking.value = false
-      setupBlinking()
-    }, 200)
+        const blinkTimerId = setTimeout(() => {
+            isBlinking.value = false
+            setupBlinking()
+        }, 200)
 
-    return () => clearTimeout(blinkTimerId)
-  }, blinkDelay)
+        return () => clearTimeout(blinkTimerId)
+    }, blinkDelay)
 
-  return () => clearTimeout(timerId)
+    return () => clearTimeout(timerId)
 }
 
 const copyLogo = async () => {
-  if (logoElement.value) {
-    const success = await copyToClipboard(logoElement.value.outerHTML)
-    if (success) {
-      toast.add({
-        title: 'Docus logo copied as SVG',
-        description: 'You can now paste it into your project',
-        icon: 'i-lucide-circle-check',
-        color: 'success',
-      })
+    if (logoElement.value) {
+        const success = await copyToClipboard(logoElement.value.outerHTML)
+        if (success) {
+            toast.add({
+                title: 'Docus logo copied as SVG',
+                description: 'You can now paste it into your project',
+                icon: 'i-lucide-circle-check',
+                color: 'success',
+            })
+        }
+        else {
+            toast.add({
+                title: 'Failed to copy logo',
+                description: 'Please try again',
+                icon: 'i-lucide-circle-x',
+                color: 'error',
+            })
+        }
     }
-    else {
-      toast.add({
-        title: 'Failed to copy logo',
-        description: 'Please try again',
-        icon: 'i-lucide-circle-x',
-        color: 'error',
-      })
-    }
-  }
 }
 
 const downloadLogo = () => {
-  if (logoElement.value) {
-    const svgData = logoElement.value.outerHTML
-    const blob = new Blob([svgData], { type: 'image/svg+xml' })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = 'docus-logo.svg'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    URL.revokeObjectURL(url)
+    if (logoElement.value) {
+        const svgData = logoElement.value.outerHTML
+        const blob = new Blob([svgData], { type: 'image/svg+xml' })
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = 'docus-logo.svg'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
 
-    toast.add({
-      title: 'Docus logo downloaded',
-      description: 'The SVG file has been saved',
-      icon: 'i-lucide-download',
-      color: 'success',
-    })
-  }
+        toast.add({
+            title: 'Docus logo downloaded',
+            description: 'The SVG file has been saved',
+            icon: 'i-lucide-download',
+            color: 'success',
+        })
+    }
 }
 
 const logoContextMenuItems = [
-  [{
-    label: 'Copy logo as SVG',
-    icon: 'i-lucide-copy',
-    onSelect() {
-      copyLogo()
-    },
-  }],
-  [{
-    label: 'Download SVG',
-    icon: 'i-lucide-download',
-    onSelect() {
-      downloadLogo()
-    },
-  }],
+    [{
+        label: 'Copy logo as SVG',
+        icon: 'i-lucide-copy',
+        onSelect() {
+            copyLogo()
+        },
+    }],
+    [{
+        label: 'Download SVG',
+        icon: 'i-lucide-download',
+        onSelect() {
+            downloadLogo()
+        },
+    }],
 ]
 
 onMounted(() => {
-  cleanup = setupBlinking()
-  isTouchDevice.value = 'ontouchstart' in window
+    cleanup = setupBlinking()
+    isTouchDevice.value = 'ontouchstart' in window
 })
 
 onBeforeUnmount(() => {
-  cleanup?.()
+    cleanup?.()
 })
 </script>
 
 <template>
-  <UContextMenu :items="logoContextMenuItems">
-    <svg
+    <UContextMenu :items="logoContextMenuItems">
+        <!-- <svg
       ref="logoElement"
       viewBox="0 0 139 32"
       fill="none"
@@ -162,6 +162,10 @@ onBeforeUnmount(() => {
         d="M44.6799 7.02197H53.7408C56.0076 7.02197 58.0084 7.44945 59.7488 8.29791C61.4884 9.14597 62.8315 10.3455 63.7852 11.897C64.7377 13.4466 65.2181 15.2665 65.2181 17.3654C65.2181 19.4642 64.7377 21.2841 63.7852 22.8337C62.8315 24.3852 61.4884 25.5847 59.7488 26.4328C58.0084 27.2813 56.0076 27.7087 53.7408 27.7087H44.6799C44.3382 27.7087 44.0612 27.4318 44.0612 27.0901V7.64061C44.0612 7.29895 44.3382 7.02197 44.6799 7.02197ZM53.5011 23.4083C55.3462 23.4083 56.8475 22.8794 57.9792 21.8014C59.1352 20.7194 59.7018 19.2302 59.7018 17.3654C59.7018 15.5005 59.1352 14.0113 57.9792 12.9293C56.8475 11.8513 55.3462 11.3224 53.5011 11.3224H50.1841C49.816 11.3224 49.5175 11.6209 49.5175 11.989V22.7417C49.5175 23.1098 49.816 23.4083 50.1841 23.4083H53.5011Z"
         fill="currentColor"
       />
-    </svg>
-  </UContextMenu>
+    </svg> -->
+        <div class="flex items-center space-x-2 cursor-pointer">
+            <img ref="logoElement" src="/icon.png" class="w-12" alt="FerrisKey Logo" />
+            <span>FerrisKey Docs</span>
+        </div>
+    </UContextMenu>
 </template>
