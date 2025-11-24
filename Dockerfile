@@ -16,27 +16,33 @@ COPY ./package.json ./
 COPY ./pnpm-lock.yaml ./
 COPY ./pnpm-workspace.yaml ./
 
-# Copy all workspace packages (needed for docs:build)
+# Copy all workspace packages
 COPY ./docs ./docs
 COPY ./layer ./layer
 
-# Install dependencies for the entire workspace
+# Install dependencies
 RUN pnpm install
 
-# Build the documentation using the docs:build command
+# Build the documentation
 RUN pnpm docs:build
 
-# Production stage with nginx
-FROM nginx:alpine
+# Production stage
+FROM node:${NODE_VERSION}-slim
 
-# Copy the built documentation to nginx html directory
-COPY --from=build /app/docs/.output/public /usr/share/nginx/html
+# Set the working directory
+WORKDIR /app
 
-# Copy nginx configuration if you have one
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy the built output
+COPY --from=build /app/docs/.output ./
 
-# Expose port 80
-EXPOSE 80
+# Set environment variables
+ENV HOST=0.0.0.0
+ENV PORT=3000
+ENV NODE_ENV=production
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Expose the port
+EXPOSE 3000
+
+
+# Start the application
+CMD ["node", "server/index.mjs"]
