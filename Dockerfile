@@ -23,6 +23,8 @@ COPY ./layer ./layer
 # Install dependencies
 RUN pnpm install
 
+RUN pnpm dev:prepare
+
 # Build the documentation
 RUN pnpm docs:build
 
