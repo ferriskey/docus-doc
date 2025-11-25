@@ -45,6 +45,8 @@ export default defineNuxtConfig({
             "mdc",
             "md",
             "yaml",
+            "rust",
+            "rs",
           ],
         },
         remarkPlugins: {
