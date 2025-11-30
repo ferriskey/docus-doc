@@ -13,7 +13,7 @@ export default defineAppConfig({
         {
           icon: "material-symbols:cloud",
           label: "Cloud IAM",
-          to: "https://cloud-iam.com",
+          to: "https://eu1.hubs.ly/H0q0Kbb0",
           target: "_blank",
         },
       ],
