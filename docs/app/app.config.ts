@@ -1,8 +1,6 @@
 export default defineAppConfig({
   socials: {
-    x: "https://x.com/nuxt_js",
-    discord: "https://discord.com/invite/ps2h6QT",
-    nuxt: "https://nuxt.com",
+    discord: "https://discord.com/invite/WVV5rq8ANb",
   },
   github: {
     rootDir: "docs",
