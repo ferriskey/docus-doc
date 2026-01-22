@@ -1,4 +1,4 @@
-ARG NODE_VERSION=24.3.0
+ARG NODE_VERSION=24.13.0
 
 # Create build stage
 FROM node:${NODE_VERSION}-slim AS build
@@ -21,7 +21,7 @@ COPY ./docs ./docs
 COPY ./layer ./layer
 
 # Install dependencies
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 RUN pnpm dev:prepare
 
