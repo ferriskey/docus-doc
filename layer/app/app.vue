@@ -15,7 +15,7 @@ useHead({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     ],
     link: [
-        { rel: 'icon', href: '/icon.png' },
+        { rel: 'icon', href: '/ferriskey.png' },
     ],
     htmlAttrs: {
         lang,
@@ -58,17 +58,17 @@ provide('navigation', navigation)
 </script>
 
 <template>
-    <UApp :locale="nuxtUiLocales[locale as keyof typeof nuxtUiLocales]">
-        <NuxtLoadingIndicator color="var(--ui-primary)" />
+<UApp :locale="nuxtUiLocales[locale as keyof typeof nuxtUiLocales]">
+    <NuxtLoadingIndicator color="var(--ui-primary)" />
 
-        <AppHeader v-if="$route.meta.header !== false" />
-        <NuxtLayout>
-            <NuxtPage />
-        </NuxtLayout>
-        <AppFooter v-if="$route.meta.footer !== false" />
+    <AppHeader v-if="$route.meta.header !== false" />
+    <NuxtLayout>
+        <NuxtPage />
+    </NuxtLayout>
+    <AppFooter v-if="$route.meta.footer !== false" />
 
-        <ClientOnly>
-            <LazyUContentSearch :files="files" :navigation="navigation" />
-        </ClientOnly>
-    </UApp>
+    <ClientOnly>
+        <LazyUContentSearch :files="files" :navigation="navigation" />
+    </ClientOnly>
+</UApp>
 </template>

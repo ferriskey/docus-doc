@@ -112,8 +112,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <UContextMenu :items="logoContextMenuItems">
-        <!-- <svg
+<UContextMenu :items="logoContextMenuItems">
+    <!-- <svg
       ref="logoElement"
       viewBox="0 0 139 32"
       fill="none"
@@ -163,9 +163,9 @@ onBeforeUnmount(() => {
         fill="currentColor"
       />
     </svg> -->
-        <div class="flex items-center space-x-2 cursor-pointer">
-            <img ref="logoElement" src="/icon.png" class="w-12" alt="FerrisKey Logo" />
-            <span>FerrisKey Docs</span>
-        </div>
-    </UContextMenu>
+    <div class="flex items-center space-x-2 cursor-pointer">
+        <img ref="logoElement" src="/ferriskey.png" class="w-12" alt="FerrisKey Logo" />
+        <span>FerrisKey Docs</span>
+    </div>
+</UContextMenu>
 </template>
